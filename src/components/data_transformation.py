@@ -25,13 +25,13 @@ class DataTransformation:
         This function is responsible for data transformation
         '''
         try:
-            numerical_columns = ["writing score","reading score"]
+            numerical_columns = ["writing_score","reading_score"]
             categorical_columns = [
                 "gender",
                 "race/ethnicity",
-                "parental level of education",
+                "parental_level_of_education",
                 "lunch",
-                "test preparation course"
+                "test_preparation_course"
             ]
 
             num_pipeline=Pipeline(
@@ -48,8 +48,8 @@ class DataTransformation:
                 ]
             )
             
-            logging.info(f"Numerical columns: {categorical_columns}")
-            logging.info(f"Categorical columns: {numerical_columns}")
+            logging.info(f"Numerical columns: {numerical_columns}")
+            logging.info(f"Categorical columns: {categorical_columns}")
 
             preprocessor=ColumnTransformer(
                 [
@@ -62,19 +62,22 @@ class DataTransformation:
         except Exception as e:
             raise CustomException(e,sys)
         
-    def initiate_data_tranformation(self,train_path,test_path):
+    def initiate_data_transformation(self,train_path,test_path):
 
         try:
             train_df=pd.read_csv(train_path)
             test_df=pd.read_csv(test_path)
+
+            train_df.columns = train_df.columns.str.strip().str.lower().str.replace(" ", "_")
+            test_df.columns = test_df.columns.str.strip().str.lower().str.replace(" ", "_")
 
             logging.info("read train and test data completed")
             logging.info("Obtaining preprocessing object")
 
             preprocessing_obj = self.get_data_transformer_object()
 
-            target_column_name="math score"
-            numerical_columns = ["writing score","reading score"]
+            target_column_name="math_score"
+            numerical_columns = ["writing_score","reading_score"]
             
             input_feature_train_df=train_df.drop(columns=[target_column_name],axis=1)
             target_feature_train_df=train_df[target_column_name]
