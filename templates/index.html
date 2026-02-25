@@ -2,10 +2,86 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Student Performance Prediction</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 700px;
+            padding: 40px;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 35px;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 30px;
+            text-decoration: none;
+            background: white;
+            color: #667eea;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+            }
+            p {
+                font-size: 16px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to the home page.</h1>
+
+    <div class="container">
+        <h1>Student Performance Prediction</h1>
+        <p>
+            Predict students' mathematics scores using machine learning.
+            This project analyzes academic and demographic factors to estimate performance.
+        </p>
+
+        <a href="/predictdata" class="btn">Start Prediction</a>
+    </div>
+
 </body>
 </html>

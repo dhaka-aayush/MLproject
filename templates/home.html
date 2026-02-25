@@ -3,90 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <title>Student Performance Prediction</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f8;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            padding: 40px 20px;
         }
 
         .main-container {
-            background-color: #ffffff;
-            padding: 30px 40px;
-            width: 450px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background: #ffffff;
+            width: 100%;
+            max-width: 850px;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
         }
 
         .page-title {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 600;
+            color: #333;
         }
 
-        /* Common style for all input blocks */
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
         .form-group {
-            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
         }
 
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
+        label {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: #555;
         }
 
-        .form-group select {
-            width: 100%;
-            padding: 8px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
+        select,
+        input {
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            transition: 0.3s ease;
         }
 
-        
+        select:focus,
+        input:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
 
         .submit-btn {
-            width: 100%;
-            padding: 10px;
-            margin-top: 20px;
-            background-color: #007bff;
+            grid-column: span 2;
+            padding: 12px;
+            margin-top: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: #ffffff;
             border: none;
-            border-radius: 4px;
+            border-radius: 30px;
             font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
+            transition: 0.3s ease;
         }
 
         .submit-btn:hover {
-            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .result-box {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            background: #f4f6ff;
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            form {
+                grid-template-columns: 1fr;
+            }
+
+            .submit-btn,
+            .full-width {
+                grid-column: span 1;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="Login">
+<div class="main-container">
 
-    <h2 class="page-title">Student Exam Performance Indicator</h2>
+    <h2 class="page-title">Student Exam Performance Predictor</h2>
 
-    <form action="{{ url_for('predict_datapoints')}}" method="post" >
+    <form action="{{ url_for('predict_datapoints')}}" method="post">
 
-        <!-- Gender -->
-        <div class="form-group gender-group">
-            <label for="gender">Gender *</label>
-            <select id="gender" name="gender" required>
-                <option value="" disabled selected>Select gender</option>
+        <div class="form-group">
+            <label>Gender *</label>
+            <select name="gender" required>
+                <option disabled selected>Select gender</option>
                 <option value="female">Female</option>
                 <option value="male">Male</option>
             </select>
         </div>
 
-        <!-- Race / Ethnicity -->
-        <div class="form-group race-group">
-            <label for="race_ethnicity">Race / Ethnicity *</label>
-            <select id="race_ethnicity" name="race_ethnicity" required>
-                <option value="" disabled selected>Select race/ethnicity</option>
+        <div class="form-group">
+            <label>Race / Ethnicity *</label>
+            <select name="race_ethnicity" required>
+                <option disabled selected>Select race/ethnicity</option>
                 <option value="group A">Group A</option>
                 <option value="group B">Group B</option>
                 <option value="group C">Group C</option>
@@ -95,11 +151,10 @@
             </select>
         </div>
 
-        <!-- Parental Level of Education -->
-        <div class="form-group parent-education-group">
-            <label for="parental_level_of_education">Parental Level of Education *</label>
-            <select id="parental_level_of_education" name="parental_level_of_education" required>
-                <option value="" disabled selected>Select education level</option>
+        <div class="form-group">
+            <label>Parental Level of Education *</label>
+            <select name="parental_level_of_education" required>
+                <option disabled selected>Select education level</option>
                 <option value="bachelor's degree">Bachelor's Degree</option>
                 <option value="master's degree">Master's Degree</option>
                 <option value="associate's degree">Associate's Degree</option>
@@ -109,45 +164,45 @@
             </select>
         </div>
 
-        <!-- Lunch -->
-        <div class="form-group lunch-group">
-            <label for="lunch">Lunch *</label>
-            <select id="lunch" name="lunch" required>
-                <option value="" disabled selected>Select lunch type</option>
+        <div class="form-group">
+            <label>Lunch *</label>
+            <select name="lunch" required>
+                <option disabled selected>Select lunch type</option>
                 <option value="standard">Standard</option>
                 <option value="free/reduced">Free / Reduced</option>
             </select>
         </div>
 
-        <!-- Test Preparation Course -->
-        <div class="form-group test-prep-group">
-            <label for="test_preparation_course">Test Preparation Course *</label>
-            <select id="test_preparation_course" name="test_preparation_course" required>
-                <option value="" disabled selected>Select course status</option>
+        <div class="form-group">
+            <label>Test Preparation Course *</label>
+            <select name="test_preparation_course" required>
+                <option disabled selected>Select course status</option>
                 <option value="none">None</option>
                 <option value="completed">Completed</option>
             </select>
         </div>
 
-        <div class="reading score">
-            <label class="form-label">Reading score out of 100</label>
-            <input class="form-control" type="number" name="reading_score"
-                placeholder="Enter your reading score" min='0' max='100' />
+        <div class="form-group">
+            <label>Reading Score (0–100)</label>
+            <input type="number" name="reading_score" min="0" max="100" required>
         </div>
 
-        <div class="writing score">
-            <label class="form-label">Writing score out of 100</label>
-            <input class="form-control" type="number" name="writing_score"
-                placeholder="Enter your Writing score" min='0' max='100' />
+        <div class="form-group">
+            <label>Writing Score (0–100)</label>
+            <input type="number" name="writing_score" min="0" max="100" required>
         </div>
 
-        <button type="submit" class="submit-btn">Submit</button>
+        <button type="submit" class="submit-btn">Predict Math Score</button>
 
     </form>
 
+    {% if results %}
+    <div class="result-box">
+        🎯 Predicted Math Score: {{ results }}
+    </div>
+    {% endif %}
+
 </div>
-<h2>
-    The Prediction is {{results}}
-</h2>
+
 </body>
 </html>
